@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no"/>
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/rest.css"/>
+<style>
+    html{
+        font-size:10vh;
+        height: 100%;
+        overflow-y: scroll;
+        max-width:640px;
+        margin: 0 auto;
+    }
+    body{
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+    .imgEdit{
+        display: block;
+        width: 50vh;
+        height: 50vh;
+        margin: 5vh auto;
+        border: 2px solid #66ccff;}
+    .imgBox{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    .imgBox img{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        -webkit-transform: translate(-50%,-50%);
+        transform-origin: center;}
+    #input{
+        display: block;
+        margin: 0 auto;}
+    .btn{
+        display: block;
+        margin: 2vh auto;
+        width: 10vh;
+        line-height: 1.5;}
+</style>
+</head>
+
+<body>
+<div class="imgEdit">
+    <div class="imgBox"></div>
+</div>
+<input type="file" id="input" value="点击上传">
+<button class="btn">确认</button>
+</body>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/upFile.js"></script>
+<script>
+    $('.imgBox').imgEdit({
+        upFileBtn:'#input',         //上传按钮
+        editBtn:'.btn',             //编辑按钮
+        size:2,                     //图片清晰度,默认为容器大小的2倍
+    });
+</script>
+</html>

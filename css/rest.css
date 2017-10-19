@@ -1,0 +1,68 @@
+/*css reset*/
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+	margin: 0 auto;
+	padding: 0;
+	font-family: Microsoft YaHei, Arial, SimSun, sans-serif;
+	font-size:14px;
+	color:#333333;
+}
+*html{
+    background-image:url(about:blank);
+    background-attachment:fixed;}
+fieldset, img {
+	border: 0;
+	vertical-align:middle;
+}
+:focus {
+	outline: 0;
+}
+address, caption, cite, code, dfn, em, strong, th, var, optgroup {
+	font-style: normal;
+	font-weight: normal;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+a{
+	text-decoration:none;
+	color:#333333;
+}
+a:hover{ color:#999999}
+abbr, acronym {
+	border: 0;
+	font-variant: normal;
+	
+}
+input, button, textarea, select, optgroup, option {
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+}
+code, kbd, samp, tt {
+	font-size: 100%;
+}
+
+input, button, textarea, select {
+*font-size:100%;
+}
+ol, ul {
+	list-style: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+caption, th {
+	text-align: left;
+}
+.clear{ clear:both}
+.zoom{*zoom:1;*display:inline;}
+.fl{ float:left}
+.fr{ float:right}
+.dl{ display:block; float:left}
+.dr{ display:block; float:right}
+.em2{ text-indent:2em;}
+body{ width:100%; max-width:640px;}
+

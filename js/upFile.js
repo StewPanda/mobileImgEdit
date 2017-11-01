@@ -18,8 +18,12 @@
             startX,     //屏幕按下时图片的X坐标
             scale,      //图片载入时的缩放比例
             moveScale,  //图片缩放过后的缩放比例
+            endScale,  //图片缩放过后的缩放比例
             imgWidth,   //图片的原始宽度
-            imgHeight;  //图片的原始高度
+            imgHeight,  //图片的原始高度
+            deg,  //初始旋转角度
+            preRadian,  //初始旋转角度
+            nowRadian;  //初始旋转角度
         var upFileBtn = $(opts.upFileBtn);
         var editBtn = $(opts.editBtn);
         editBtn.click(function () {
@@ -31,6 +35,7 @@
                 c.id = 'drawImage';
                 c.width = opts.width * size;
                 c.height = opts.height * size;
+                var deg=eval('get'+_this.find('img').css('transform'));
                 var ctx = c.getContext("2d");
                 var sy = (_this.find('img').offset().top - opts.top);
                 var sx = (_this.find('img').offset().left - opts.left);
@@ -65,6 +70,12 @@
                     touches[0] = touch[0];
                     touches[1] = touch[1];
                     start = getDistance(touch);
+
+                    preRadian = Math.atan2(
+                        touch[0].pageY - touch[1].pageY,
+                        touch[0].pageX - touch[1].pageX);
+
+
                 }else if (touch && touch.length == 1){
                     touches[0] = touch[0];
                 }
@@ -74,18 +85,49 @@
                 e.preventDefault();
                 if (touch && touch.length == 2)
                 {
+                    // $('.text').text(_that.css('transform')+'<br>'+deg);
+                    nowRadian = Math.atan2(
+                        touch[0].pageY - touch[1].pageY,
+                        touch[0].pageX - touch[1].pageX);
+                    $('.preRadian span').html(_that.css('transform')+'<br>'+deg);
+                    $('.nowRadian span').text(180 / Math.PI * (nowRadian - preRadian));
+                    deg += 180 / Math.PI * (nowRadian - preRadian);
+                    preRadian = nowRadian;
                     end = getDistance(touch);
                     var endScale = moveScale+(end-start)*0.0002;
                     if(endScale < scale) endScale = scale;
                     if(endScale > 2) endScale = 2;
-                    $(this).css('transform', 'translate(-50%,-50%) scale('+endScale+ ')');
+                    $(this).css('transform', 'translate(-50%,-50%) rotate('+deg+'deg) scale('+endScale+ ')');
                     moveScale = endScale;
+
                 }else if (touch && touch.length == 1){
                     var moveY = touch[0].pageY-touches[0].pageY;
                     var moveX = touch[0].pageX-touches[0].pageX;
                     _that.css({'top':startY+moveY,'left':startX+moveX});
+                    $('.preRadian span').html(_that.css('transform')+'<br>'+deg);
+                    $('.nowRadian span').text(180 / Math.PI * (nowRadian - preRadian));
                 }
             });
+            _that.on('touchend',function () {
+                deg=eval('get'+_that.css('transform'));
+            });
+            function getmatrix(a,b,c,d,e,f){
+                var aa=Math.round(180*Math.asin(a/scale)/ Math.PI);
+                var bb=Math.round(180*Math.acos(b/scale)/ Math.PI);
+                var cc=Math.round(180*Math.asin(c/scale)/ Math.PI);
+                var dd=Math.round(180*Math.acos(d/scale)/ Math.PI);
+                var deg=0;
+                if(aa==bb||-aa==bb){
+                    deg=dd;
+                }else if(-aa+bb==180){
+                    deg=180+cc;
+                }else if(aa+bb==180){
+                    deg=360-cc||360-dd;
+                }
+                return deg>=360?0:deg;
+                //return (aa+','+bb+','+cc+','+dd);
+            }
+            console.log()
         });
     };
     function getFileUrl(selector){
@@ -110,4 +152,5 @@
         }
         return distance;
     }
+
 })(window.jQuery);
